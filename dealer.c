@@ -4,6 +4,18 @@
 #include <sys/types.h>
 #include <stdbool.h>
 #include <sys/wait.h>
+#include <string.h>
+
+struct rollStat
+{
+  char statementTrials[45];
+  int numOfTrials;
+  char statementSuccess[45];
+  float percentageSuccess;
+  char statementFailure[45];
+  float percentageFailure;
+
+};
 
 int main(int argc, char** argv)
 {
@@ -14,9 +26,9 @@ int main(int argc, char** argv)
   int verbose=0;
   int numP;
   int openFile = 0;
-  String fileName;
+  char *fileName;
   // loop for getopt to parse cmd line args
-  while ((opt = getopt (argc, argv, "p:v:o")) != -1)
+  while ((opt = getopt (argc, argv, "p:vo:")) != -1)
     {
       switch (opt)
 	{
@@ -33,7 +45,8 @@ int main(int argc, char** argv)
 	case 'o':
 	  openFile = 1;
      // gets the file name
-    fileName = optarg;
+    //char* fileName = optarg;
+    fileName =  optarg;
 	  break;
 	}
     }
@@ -105,11 +118,17 @@ int main(int argc, char** argv)
   
   if(openFile){
   // ab is append in binary
-  FILE *BinFile = fopen(fileName,"ab");
-  fprintf(file, "Created %d processes.\n",numP);
-  fprintf(file, "Success -  %4.2f\%  \n", (passed/(passed+failed))*100.0);
-  fprintf(file, "Failure -  %4.2f\%  \n", (failed/(passed+failed))*100.0);
-  printf("Results were written to ", fileName);
+  FILE *BinFile;
+  BinFile = fopen(fileName,"ab");
+  struct rollStat stat = 
+  {"Created %d processes.\n",numP,
+   "Success -  %4.2f\%  \n", (passed/(passed+failed))*100.0 ,
+  "Failure -  %4.2f\%  \n", (failed/(passed+failed))*100.0 
+  };
+  fwrite(&stat, sizeof(stat), 1, BinFile );
+  
+  printf("Results were written to %s \n", fileName);
+  fclose(BinFile);
   }
   // release memory
   free(chan);
