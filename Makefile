@@ -15,6 +15,10 @@ pitboss : pitboss.o
 	$(CC) -o $@ $<
 pitboss.o : pitboss.c
 	$(CC) -c $<
+Signals: Signals.o
+	$(CC) $(LDFLAGS) -o $@ $<
+Signals.o: Signals.c
+	$(CC) -c $(CFLAGS) $<
 
 ## PHONY targets to clean
 .PHONY : clobber clean neat echo
