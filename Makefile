@@ -19,6 +19,14 @@ Signals: Signals.o
 	$(CC) $(LDFLAGS) -o $@ $<
 Signals.o: Signals.c
 	$(CC) -c $(CFLAGS) $<
+ForkExecPipes : ForkExecPipes.o
+	$(CC) -o $@ $<
+ForkExecPipes.o : ForkExecPipes.c
+	$(CC) -c $<
+Prob1: Prob1.o
+	$(CC) $(LDFLAGS) -o $@ $<
+Prob1.o: Prob1.c
+	$(CC) -c $(CFLAGS) $<
 
 ## PHONY targets to clean
 .PHONY : clobber clean neat echo

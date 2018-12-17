@@ -11,8 +11,10 @@ if(( $(echo "$XY<=1.000" |bc -l) )); then
 fi
 ((i++))
 done
+
 MyPi=$(bc <<< " scale=5; (($PointsInQuarterCircle / $PointsInSquare) * 4 )/1  ")
+
 echo "PointsInQuarterCircle $PointsInQuarterCircle : PointsInSquare $PointsInSquare"
-echo "Pi = $MyPi"
+echo "MyPi = $MyPi"
 
 
