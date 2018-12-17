@@ -13,6 +13,6 @@ fi
 done
 MyPi=$(bc <<< " scale=5; (($PointsInQuarterCircle / $PointsInSquare) * 4 )/1  ")
 echo "PointsInQuarterCircle $PointsInQuarterCircle : PointsInSquare $PointsInSquare"
-echo "Pi = $MYPi"
+echo "Pi = $MyPi"
 
 

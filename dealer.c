@@ -100,12 +100,17 @@ int main(int argc, char** argv)
 
   // print out stats
   printf("Created %d processes.\n",numP);
-  printf("Succeeded -  %2.0f  \n", passed);
   printf("Success -  %4.2f\%  \n", (passed/(passed+failed))*100.0);
-  printf("Failed -  %2.0f  \n", failed);
   printf("Failure -  %4.2f\%  \n", (failed/(passed+failed))*100.0);
-// ab is append in binary
-  fopen(fileName,"ab");
+  
+  if(openFile){
+  // ab is append in binary
+  FILE *BinFile = fopen(fileName,"ab");
+  fprintf(file, "Created %d processes.\n",numP);
+  fprintf(file, "Success -  %4.2f\%  \n", (passed/(passed+failed))*100.0);
+  fprintf(file, "Failure -  %4.2f\%  \n", (failed/(passed+failed))*100.0);
+  printf("Results were written to ", fileName);
+  }
   // release memory
   free(chan);
 
